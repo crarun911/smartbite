@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/cameraScreen">
+
+    <fragment
+        android:id="@+id/cameraScreen"
+        android:name="com.smartbite.android.screens.CameraScreen"
+        android:label="Camera" />
+
+    <fragment
+        android:id="@+id/resultScreen"
+        android:name="com.smartbite.android.screens.ResultScreen"
+        android:label="Result" />
+
+</navigation>
