@@ -1,15 +1,13 @@
 plugins {
     application
-    kotlin("jvm") version "2.0.0"
+    kotlin("jvm")
 }
 
 application {
     mainClass.set("com.smartbite.backend.ApplicationKt")
 }
 
-repositories {
-    mavenCentral()
-}
+
 
 dependencies {
     implementation("io.ktor:ktor-server-core-jvm:2.3.8")

@@ -1,6 +1,15 @@
 plugins {
-    kotlin("multiplatform")
     id("com.android.library")
+    kotlin("multiplatform")
+}
+
+android {
+    namespace = "com.smartbite.shared.camera"
+    compileSdk = 34
+
+    defaultConfig {
+        minSdk = 24
+    }
 }
 
 kotlin {
@@ -23,10 +32,4 @@ kotlin {
 
         val iosMain by getting
     }
-}
-
-android {
-    namespace = "com.smartbite.shared.camera"
-    compileSdk = 34
-    defaultConfig { minSdk = 24 }
 }
