@@ -1,10 +1,12 @@
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
     id("com.android.library")
+    id("org.jetbrains.kotlin.multiplatform")
+    id("org.jetbrains.kotlin.plugin.compose")
+    id("org.jetbrains.compose")
 }
 
 kotlin {
+
     androidTarget()
 
     iosX64()
@@ -12,6 +14,7 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
+
         val commonMain by getting {
             dependencies {
                 implementation(project(":shared:core"))
@@ -21,8 +24,28 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.ui)
-                implementation("io.insert-koin:koin-core:3.5.3")
+
+                implementation("io.insert-koin:koin-core:3.5.6")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
             }
+        }
+
+        val androidMain by getting
+
+        val iosMain by creating {
+            dependsOn(commonMain)
+        }
+
+        val iosX64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosArm64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
         }
     }
 }
@@ -30,5 +53,8 @@ kotlin {
 android {
     namespace = "com.smartbite.shared.ui"
     compileSdk = 34
-    defaultConfig { minSdk = 24 }
+
+    defaultConfig {
+        minSdk = 24
+    }
 }

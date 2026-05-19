@@ -1,6 +1,6 @@
 plugins {
     id("com.android.library")
-    kotlin("multiplatform")
+    id("org.jetbrains.kotlin.multiplatform")
 }
 
 android {
@@ -13,6 +13,7 @@ android {
 }
 
 kotlin {
+
     androidTarget()
 
     iosX64()
@@ -20,6 +21,7 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
+
         val commonMain by getting
 
         val androidMain by getting {
@@ -30,6 +32,21 @@ kotlin {
             }
         }
 
-        val iosMain by getting
+        // FIX: create iosMain explicitly (IMPORTANT)
+        val iosMain by creating {
+            dependsOn(commonMain)
+        }
+
+        val iosX64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosArm64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
     }
 }

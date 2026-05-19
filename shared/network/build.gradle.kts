@@ -1,10 +1,10 @@
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
     id("com.android.library")
+    id("org.jetbrains.kotlin.multiplatform")
 }
 
 kotlin {
+
     androidTarget()
 
     iosX64()
@@ -12,6 +12,7 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
+
         val commonMain by getting {
             dependencies {
                 implementation(project(":shared:core"))
@@ -21,17 +22,30 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
 
                 implementation("io.insert-koin:koin-core:3.5.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
             }
         }
+
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:2.3.8")
             }
         }
-        val iosMain by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-darwin:2.3.8")
-            }
+
+        val iosMain by creating {
+            dependsOn(commonMain)
+        }
+
+        val iosX64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosArm64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
         }
     }
 }
@@ -39,5 +53,8 @@ kotlin {
 android {
     namespace = "com.smartbite.shared.network"
     compileSdk = 34
-    defaultConfig { minSdk = 24 }
+
+    defaultConfig {
+        minSdk = 24
+    }
 }
